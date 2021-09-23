@@ -175,7 +175,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/hello-world/dev/1632048359376-2021-09-19T10:45:59.376Z/hello-world.zip"
+                "S3Key": "serverless/hello-world/dev/1632352401638-2021-09-22T23:13:21.638Z/hello-world.zip"
               },
               "Handler": "handler.hello",
               "Runtime": "python2.7",
@@ -338,10 +338,10 @@
     },
     "layers": {},
     "isDashboardMonitoringPreconfigured": false,
-    "artifact": "/home/abhilash/serverless/hello-world/.serverless/hello-world.zip"
+    "artifact": "/home/iserver/Downloads/serverless/hello-world/.serverless/hello-world.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/hello-world/dev/1632048359376-2021-09-19T10:45:59.376Z",
+    "artifactDirectoryName": "serverless/hello-world/dev/1632352401638-2021-09-22T23:13:21.638Z",
     "artifact": "hello-world.zip"
   }
 }
