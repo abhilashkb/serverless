@@ -85,10 +85,16 @@
               }
             }
           },
-          "HelloLogGroup": {
+          "HelloDashlongDashtimeLogGroup": {
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
-              "LogGroupName": "/aws/lambda/hello-world-dev-hello"
+              "LogGroupName": "/aws/lambda/hello-world-dev-hello-long-time"
+            }
+          },
+          "HelloDashshortDashtimeLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/hello-world-dev-hello-short-time"
             }
           },
           "IamRoleLambdaExecution": {
@@ -168,19 +174,44 @@
               }
             }
           },
-          "HelloLambdaFunction": {
+          "HelloDashlongDashtimeLambdaFunction": {
             "Type": "AWS::Lambda::Function",
             "Properties": {
               "Code": {
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/hello-world/dev/1632352401638-2021-09-22T23:13:21.638Z/hello-world.zip"
+                "S3Key": "serverless/hello-world/dev/1632412108271-2021-09-23T15:48:28.271Z/hello-world.zip"
               },
               "Handler": "handler.hello",
               "Runtime": "python2.7",
-              "FunctionName": "hello-world-dev-hello",
-              "MemorySize": 1024,
+              "FunctionName": "hello-world-dev-hello-long-time",
+              "MemorySize": 256,
+              "Timeout": 3,
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              }
+            },
+            "DependsOn": [
+              "HelloDashlongDashtimeLogGroup"
+            ]
+          },
+          "HelloDashshortDashtimeLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/hello-world/dev/1632412108271-2021-09-23T15:48:28.271Z/hello-world.zip"
+              },
+              "Handler": "handler.hello",
+              "Runtime": "python2.7",
+              "FunctionName": "hello-world-dev-hello-short-time",
+              "MemorySize": 128,
               "Timeout": 6,
               "Role": {
                 "Fn::GetAtt": [
@@ -190,17 +221,27 @@
               }
             },
             "DependsOn": [
-              "HelloLogGroup"
+              "HelloDashshortDashtimeLogGroup"
             ]
           },
-          "HelloLambdaVersionUELs5MH9efKTiN9iZwwKDkmQJVbeUpJX725Q4zcXJmc": {
+          "HelloDashlongDashtimeLambdaVersionBQxZPI22WDn9nn91CvyCpeUucw6dF9KS58uoZ0A6n4": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
-                "Ref": "HelloLambdaFunction"
+                "Ref": "HelloDashlongDashtimeLambdaFunction"
               },
-              "CodeSha256": "FU4H6DEIG+VKOKLY/XLC5Abde/WbCZEElLe/zsqKohk="
+              "CodeSha256": "Wc7oTecTNFwd+bj4/H801YZGxfMGXYCmxKLZMDIXof4="
+            }
+          },
+          "HelloDashshortDashtimeLambdaVersiongc1SnhCfkPSBRfj7PruDfZWzcf1SXfHZYxKGrR5Y": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "HelloDashshortDashtimeLambdaFunction"
+              },
+              "CodeSha256": "Wc7oTecTNFwd+bj4/H801YZGxfMGXYCmxKLZMDIXof4="
             }
           }
         },
@@ -213,13 +254,22 @@
               "Name": "sls-hello-world-dev-ServerlessDeploymentBucketName"
             }
           },
-          "HelloLambdaFunctionQualifiedArn": {
+          "HelloDashlongDashtimeLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "HelloLambdaVersionUELs5MH9efKTiN9iZwwKDkmQJVbeUpJX725Q4zcXJmc"
+              "Ref": "HelloDashlongDashtimeLambdaVersionBQxZPI22WDn9nn91CvyCpeUucw6dF9KS58uoZ0A6n4"
             },
             "Export": {
-              "Name": "sls-hello-world-dev-HelloLambdaFunctionQualifiedArn"
+              "Name": "sls-hello-world-dev-HelloDashlongDashtimeLambdaFunctionQualifiedArn"
+            }
+          },
+          "HelloDashshortDashtimeLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "HelloDashshortDashtimeLambdaVersiongc1SnhCfkPSBRfj7PruDfZWzcf1SXfHZYxKGrR5Y"
+            },
+            "Export": {
+              "Name": "sls-hello-world-dev-HelloDashshortDashtimeLambdaFunctionQualifiedArn"
             }
           }
         }
@@ -310,16 +360,29 @@
     },
     "pluginsData": {},
     "functions": {
-      "hello": {
+      "hello-long-time": {
         "handler": "handler.hello",
+        "memorySize": 256,
+        "timeout": 3,
         "events": [],
-        "name": "hello-world-dev-hello",
+        "name": "hello-world-dev-hello-long-time",
         "package": {},
-        "memory": 1024,
-        "timeout": 6,
+        "memory": 256,
         "runtime": "python2.7",
         "vpc": {},
-        "versionLogicalId": "HelloLambdaVersionUELs5MH9efKTiN9iZwwKDkmQJVbeUpJX725Q4zcXJmc"
+        "versionLogicalId": "HelloDashlongDashtimeLambdaVersionBQxZPI22WDn9nn91CvyCpeUucw6dF9KS58uoZ0A6n4"
+      },
+      "hello-short-time": {
+        "handler": "handler.hello",
+        "memorySize": 128,
+        "timeout": 6,
+        "events": [],
+        "name": "hello-world-dev-hello-short-time",
+        "package": {},
+        "memory": 128,
+        "runtime": "python2.7",
+        "vpc": {},
+        "versionLogicalId": "HelloDashshortDashtimeLambdaVersiongc1SnhCfkPSBRfj7PruDfZWzcf1SXfHZYxKGrR5Y"
       }
     },
     "configValidationMode": "warn",
@@ -338,10 +401,10 @@
     },
     "layers": {},
     "isDashboardMonitoringPreconfigured": false,
-    "artifact": "/home/iserver/Downloads/serverless/hello-world/.serverless/hello-world.zip"
+    "artifact": "/home/abhilash/serverless/hello-world/.serverless/hello-world.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/hello-world/dev/1632352401638-2021-09-22T23:13:21.638Z",
+    "artifactDirectoryName": "serverless/hello-world/dev/1632412108271-2021-09-23T15:48:28.271Z",
     "artifact": "hello-world.zip"
   }
 }
