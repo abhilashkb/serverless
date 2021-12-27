@@ -1,0 +1,35 @@
+service: python-s3-thumbnail
+
+Provider:
+ name: aws
+ runtime: python3.8
+ region: us-east-1
+ profile: serverless-admin
+ timeout: 10
+ memorySize: 256
+ iamroleStatements: 
+  - Effect: "Allow"
+    Action:
+    - "s3:*"
+    Resource: "*"
+ environment:
+   THUMBNAIL_SIZE: "128"
+  
+custom:
+  bucket: abhi-s3-thumbnail-generator
+  pythonRequirements:
+   dockerizePip: true
+
+functions:
+  s3-thumbnail-generator:
+    handler: handler.s3_thumbnail_generator
+    events:
+      - s3:
+          bucket: ${self:custom.bucket}
+          event: s3:ObjectCreated:*
+          rules:
+            - suffix: .png
+
+plugins:
+  - serverless-python-requirements
+
